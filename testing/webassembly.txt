@@ -1,0 +1,23 @@
+Difficult to interact with page.
+Have to create a virtual memory pool to dynamically allocate memory and pass
+data between javascript and webassembly.
+Still slow on some platforms.
+Wait until host bindings and garbage collection become standard.
+
+--------------------------------------------------------------------------------
+
+Embed with base64 so it doesn't need to be dynamically loaded.
+
+Python:
+import base64
+with open("unileq_wasm.wasm","rb") as f: bytearr=f.read()
+base=str(base64.b64encode(bytearr))
+for i in range(2,len(base)-2,99):
+	line=base[i:i+99]
+	if line[-1]=="'": line=line[:-1]
+	print(line+"\\")
+
+Javascript:
+var unileq_binary=Uint8Array.from(window.atob("..."),(c)=>c.charCodeAt(0));
+
+--------------------------------------------------------------------------------
